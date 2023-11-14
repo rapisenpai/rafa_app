@@ -5,6 +5,7 @@ import 'package:rafa_app/components/input.dart';
 import 'package:rafa_app/components/square_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafa_app/pages/login.dart';
+import 'package:rafa_app/services/googleAuth.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -192,14 +193,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 // google + apple sign in buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     // google button
-                    SquareTile(imagePath: 'lib/images/google.png'),
+                    SquareTile(
+                        onTap: () => AuthService().signInWithGoogle(),
+                        imagePath: 'lib/images/google.png'),
 
                     SizedBox(width: 15),
 
                     // apple button
-                    SquareTile(imagePath: 'lib/images/facebook.png')
+                    SquareTile(
+                        onTap: () => AuthService().signInWithGoogle(),
+                        imagePath: 'lib/images/facebook.png')
                   ],
                 ),
 
