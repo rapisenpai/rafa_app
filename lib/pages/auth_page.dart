@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rafa_app/pages/login.dart';
 import 'package:rafa_app/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rafa_app/pages/login_or_register.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key});
@@ -17,7 +17,7 @@ class AuthPage extends StatelessWidget {
             return HomePage();
           } else {
             // User is not logged in
-            return LoginPage();
+            return LoginOrRegisgterPage();
           }
         },
       ),

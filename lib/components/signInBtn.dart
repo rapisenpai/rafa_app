@@ -7,8 +7,9 @@ class signInBtn extends StatelessWidget {
   final Color whisperGray = Color(0xFFFCFCFC);
   final Color silverGray = Color(0xFFA8A8A8);
   final Color vibrantRed = Color(0xFFFF6666);
+  final String text;
 
-  signInBtn({super.key, required this.onTap});
+  signInBtn({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class signInBtn extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "Sign in",
+              text,
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                   color: Colors.white,

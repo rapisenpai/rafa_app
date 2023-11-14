@@ -1,30 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rafa_app/components/signInBtn.dart';
-import 'package:rafa_app/components/signUpBtn.dart';
 import 'package:rafa_app/components/input.dart';
 import 'package:rafa_app/components/square_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rafa_app/pages/register.dart';
+import 'package:rafa_app/pages/home.dart';
+import 'package:rafa_app/pages/login.dart';
 
-class LoginPage extends StatefulWidget {
-  final void Function() onTap;
-  const LoginPage({Key? key, required this.onTap}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  final Function()? onTap;
+  const RegisterPage({Key? key, required this.onTap}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
   final Color midnightNavy = Color(0xFF050049);
   final Color whisperGray = Color(0xFFFCFCFC);
   final Color silverGray = Color(0xFFA8A8A8);
   final Color vibrantRed = Color(0xFFFF6666);
 
-  void signUserIn() async {
+  void signUserUp() async {
     showDialog(
         context: context,
         builder: (context) {
@@ -34,14 +35,29 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         });
+
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
+      if (passwordController.text == confirmpasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        // User creation successful, navigate to the home page
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => HomePage(), // Replace with your home page
+          ),
+        );
+      } else {
+        print("Passwords do not match");
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-      } else if (e.code == 'wrong-password') {}
+        print("User not found");
+      } else if (e.code == 'wrong-password') {
+        print("Wrong password");
+      }
     } finally {
       Navigator.pop(context); // Close loading dialog
     }
@@ -64,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 25),
                 Text(
-                  'Let\'s Sign you in.',
+                  'Welcome!',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: midnightNavy,
@@ -79,18 +95,9 @@ class _LoginPageState extends State<LoginPage> {
                 //   size: 100,
                 // ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Text(
-                  'Sign in with your data that you have',
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      color: silverGray,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                Text(
-                  'entered during registration',
+                  'Sign up to get started',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: silverGray,
@@ -101,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // welcome back, you've been missed!
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
 
                 // username textfield
                 usernameInput(
@@ -116,6 +123,14 @@ class _LoginPageState extends State<LoginPage> {
                 usernameInput(
                   controller: passwordController,
                   hintText: 'Password',
+                  obscureText: true,
+                ),
+                const SizedBox(height: 10),
+
+                // password textfield
+                usernameInput(
+                  controller: confirmpasswordController,
+                  hintText: 'Confirm Password',
                   obscureText: true,
                 ),
 
@@ -144,26 +159,11 @@ class _LoginPageState extends State<LoginPage> {
 
                 // sign in button
                 signInBtn(
-                  text: "Sign In",
-                  onTap: signUserIn,
+                  text: "Sign Up",
+                  onTap: signUserUp,
                 ),
-                const SizedBox(height: 10),
-
-                signUpBtn(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => RegisterPage(
-                          onTap: () {},
-                        ), // Replace SignUpPage with your target page
-                      ),
-                    );
-                  },
-                ),
-
                 const SizedBox(height: 25),
 
-                // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -195,9 +195,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
 
-                // google + facebook sign in buttons
+                // google + apple sign in buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -206,12 +206,49 @@ class _LoginPageState extends State<LoginPage> {
 
                     SizedBox(width: 15),
 
-                    // facebook button
+                    // apple button
                     SquareTile(imagePath: 'lib/images/facebook.png')
                   ],
                 ),
 
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+
+                // not a member? register now
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account?',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: silverGray,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigate to the login page when "Login Now" is tapped
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(
+                              onTap: () {},
+                            ), // Replace LoginPage with the actual login page
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Login now',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: vibrantRed,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -219,4 +256,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  // Not working
 }
