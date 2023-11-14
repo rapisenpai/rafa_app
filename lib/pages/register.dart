@@ -4,7 +4,6 @@ import 'package:rafa_app/components/signInBtn.dart';
 import 'package:rafa_app/components/input.dart';
 import 'package:rafa_app/components/square_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rafa_app/pages/home.dart';
 import 'package:rafa_app/pages/login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -41,13 +40,6 @@ class _RegisterPageState extends State<RegisterPage> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
-        );
-
-        // User creation successful, navigate to the home page
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => HomePage(), // Replace with your home page
-          ),
         );
       } else {
         print("Passwords do not match");
