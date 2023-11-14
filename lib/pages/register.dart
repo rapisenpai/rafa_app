@@ -25,6 +25,19 @@ class _RegisterPageState extends State<RegisterPage> {
   final Color silverGray = Color(0xFFA8A8A8);
   final Color vibrantRed = Color(0xFFFF6666);
 
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF050049)),
+          ),
+        );
+      },
+    );
+  }
+
   void signUserUp() async {
     showDialog(
         context: context,
@@ -196,15 +209,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     // google button
                     SquareTile(
-                        onTap: () => AuthService().signInWithGoogle(),
-                        imagePath: 'lib/images/google.png'),
+                      onTap: () {
+                        _showLoadingDialog(context);
+                        AuthService().signInWithGoogle().then((_) {
+                          Navigator.pop(context); // Close loading dialog
+                        });
+                      },
+                      imagePath: 'lib/images/google.png',
+                    ),
 
                     SizedBox(width: 15),
 
-                    // apple button
+                    // facebook button
                     SquareTile(
-                        onTap: () => AuthService().signInWithGoogle(),
-                        imagePath: 'lib/images/facebook.png')
+                      onTap: () {
+                        _showLoadingDialog(context);
+                        AuthService().signInWithGoogle().then((_) {
+                          Navigator.pop(context); // Close loading dialog
+                        });
+                      },
+                      imagePath: 'lib/images/facebook.png',
+                    ),
                   ],
                 ),
 
