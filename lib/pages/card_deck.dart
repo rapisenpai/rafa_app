@@ -15,6 +15,7 @@ class CardDeck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: '52 Card Deck',
       theme: ThemeData(
         primarySwatch: Colors.blue,

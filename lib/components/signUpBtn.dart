@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class signUpBtn extends StatelessWidget {
   final Function()? onTap;
-  final Color midnightNavy = Color(0xFF050049);
+  final Color midnightNavy = Color(0xFF093623);
   final Color whisperGray = Color(0xFFFCFCFC);
   final Color silverGray = Color(0xFFA8A8A8);
-  final Color vibrantRed = Color(0xFFFF6666);
+  final Color vibrantRed = Color(0xFF093623);
 
   signUpBtn({super.key, required this.onTap});
 
@@ -19,7 +19,7 @@ class signUpBtn extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
           color: whisperGray,
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(5),
           border: Border.all(
             color: midnightNavy, // Specify the border color
             width: 2.0, // Specify the border width

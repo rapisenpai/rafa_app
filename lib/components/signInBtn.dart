@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class signInBtn extends StatelessWidget {
   final Function()? onTap;
-  final Color midnightNavy = Color(0xFF050049);
+  final Color midnightNavy = Color(0xFF093623);
   final Color whisperGray = Color(0xFFFCFCFC);
   final Color silverGray = Color(0xFFA8A8A8);
-  final Color vibrantRed = Color(0xFFFF6666);
+  final Color vibrantRed = Color(0xFF093623);
   final String text;
 
   signInBtn({super.key, required this.onTap, required this.text});
@@ -20,7 +20,7 @@ class signInBtn extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 25),
           decoration: BoxDecoration(
             color: midnightNavy,
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(5),
           ),
           child: Center(
             child: Text(

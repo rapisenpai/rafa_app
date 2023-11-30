@@ -20,10 +20,10 @@ class _LoginPageState extends State<LoginPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final Color midnightNavy = Color(0xFF050049);
+  final Color midnightNavy = Color(0xFF093623);
   final Color whisperGray = Color(0xFFFCFCFC);
   final Color silverGray = Color(0xFFA8A8A8);
-  final Color vibrantRed = Color(0xFFFF6666);
+  final Color vibrantRed = Color(0xFF093623);
 
   void _showLoadingDialog(BuildContext context) {
     showDialog(
@@ -71,14 +71,14 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 60),
+                const SizedBox(height: 30),
                 Image.asset(
-                  'lib/images/travelix.png',
-                  height: 50,
+                  'lib/images/logo.jpg',
+                  height: 100,
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 5),
                 Text(
-                  'Let\'s Sign you in.',
+                  'Sign in',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: midnightNavy,
@@ -236,7 +236,19 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pop(context); // Close loading dialog
                         });
                       },
-                      imagePath: 'lib/images/facebook.png',
+                      imagePath: 'lib/images/x.png',
+                    ),
+                    SizedBox(width: 15),
+
+                    // facebook button
+                    SquareTile(
+                      onTap: () {
+                        _showLoadingDialog(context);
+                        AuthService().signInWithGoogle().then((_) {
+                          Navigator.pop(context); // Close loading dialog
+                        });
+                      },
+                      imagePath: 'lib/images/titkok.png',
                     ),
                   ],
                 ),
